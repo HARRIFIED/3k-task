@@ -7,20 +7,25 @@ import {
   Dimensions,
   Platform,
   Animated,
-  TouchableOpacity
+  TouchableOpacity,
+  ActivityIndicator
 } from "react-native";
 import { pieData } from "../data/portfolio";
 import { values } from "../data/portfolio";
-import DoghurtChart from "../components/doghurt";
 import CircularProgress from 'react-native-circular-progress-indicator';
 import { StatusBar } from "expo-status-bar";
+import { CustomPie } from '../components/vic-doghurt';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { RFValue as RF} from "react-native-responsive-fontsize";
+import { useFonts } from 'expo-font';
 
-const { height, width } = Dimensions.get(
-  Platform.OS === "android" ? "screen" : "window"
-);
-// const width = Dimensions.get("window").width
-
+// const { height, width } = Dimensions.get(
+//   Platform.OS === "android" ? "screen" : "window"
+// );
+const { width, height } = Dimensions.get("window");
+// console.log(height)
 export default function Portfolio({navigation}) {
+   
   const scrollX = useRef(new Animated.Value(0)).current;
   return (
     <>
@@ -35,18 +40,18 @@ export default function Portfolio({navigation}) {
         <View
           style={{
             flexDirection: "row",
-            marginTop: height / 11.692,
+            marginTop: hp(8.5529),
             justifyContent: "space-between",
           }}
         >
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          <TouchableOpacity onPress={() => navigation.navigate("Home")}>
             <Image
               source={require("../../assets/icons/arrow-left.png")}
               style={{
-                width: width / 40,
-                height: height / 47.5,
+                width: wp(2.5),
+                height: hp(2.3529),
                 resizeMode: "contain",
-                left: width / 11.25,
+                left: wp(8.889),
                 tintColor: "#080D45",
               }}
             />
@@ -54,8 +59,8 @@ export default function Portfolio({navigation}) {
           <Image
             source={require("../../assets/icons/Question.png")}
             style={{
-              width: width / 18,
-              height: 760 / 38,
+              width: wp(5),
+              height: hp(2.6471),
               resizeMode: "contain",
               right: width / 11.25,
               tintColor: "#080D45",
@@ -64,18 +69,14 @@ export default function Portfolio({navigation}) {
         </View>
         <View
           style={{
-            width: width / 1.5859,
-            height: height / 16.5212,
-            top: height / 38,
-            left: width / 4.8649,
-            right: width / 4.8649,
+            top: hp(2.6316),
           }}
         >
           <Text
             style={{
               fontFamily: "Mulish",
               fontWeight: "700",
-              fontSize: width / 15,
+              fontSize: RF(24, height),
               lineHeight: 36,
               textAlign: "center",
               letterSpacing: -0.16,
@@ -100,8 +101,8 @@ export default function Portfolio({navigation}) {
               <Animated.View
                 key={index}
                 style={{
-                  width: width / 22.5,
-                  height: height / 47.5,
+                  width: wp(4.44),
+                  height: hp(2.4),
                   borderRadius: 200,
                   borderWidth: 1,
                   borderColor: "#1826D0",
@@ -125,86 +126,32 @@ export default function Portfolio({navigation}) {
             { useNativeDriver: false }
           )}
           scrollEventThrottle={16}
-          style={{height: height / 1.6889}}
+          style={{height: hp(62.21), width}}
         >
           {pieData.map((item, index) => {
             return (
-              <View key={index} style={{ marginTop: height / 3.455, width,  }}>
-                <DoghurtChart />
-                <View
-                  style={{
-                    flexDirection: "row",
-                    position: "absolute",
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontSize: 10,
-                      top: height / 6.178862,
-                      left: width / 24,
-                      lineHeight: 21,
-                      fontWeight: "600",
-                      color: "#080D45",
-                    }}
-                  >
-                    {"Small Company \nStocks (IJR)"}
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 10,
-                      left: -(width / 120),
-                      top: -(height / 84.44),
-                      lineHeight: 21,
-                      fontWeight: "600",
-                      color: "#080D45",
-                    }}
-                  >
-                    {"Medium Company \nstocks (IJH)"}
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 10,
-                      left: width / 4.091,
-                      top: -(height / 25.33),
-                      lineHeight: 21,
-                      fontWeight: "600",
-                      color: "#080D45",
-                    }}
-                  >
-                    {"International Company \nStocks"}
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 10,
-                      top: height / 4.343,
-                      left: width / 18,
-                      lineHeight: 21,
-                      fontWeight: "600",
-                      color: "#080D45",
-                    }}
-                  >
-                    {"Large Company \nStocks (VOO)"}
-                  </Text>
-                </View>
+              <View key={index} style={{ marginTop: hp(24), width, alignItems: "center"  }}>
+                <CustomPie />
               </View>
             );
           })}
         </ScrollView>
-        <ScrollView nestedScrollEnabled={true} style={{height: height / 1.9}}>
+        <ScrollView nestedScrollEnabled={true} style={{height: hp(62)}}>
         <View
           style={{
-            width: width / 2.067,
-            height: height / 9.383,
+            width: wp(48.33),
+            height: hp(11.91),
             borderRadius: 6,
-            backgroundColor: "#F8F8F8",
-            left: width / 13.33,
-            top: height / 50.667
+            backgroundColor: "#EDEEF7",
+            left: wp(4),
+            top: hp(1.974)
           }}
         >
             <Text style={{
                 left: 17,
+                fontFamily: 'Mulish',
                 fontWeight: "700",
-                fontSize:14,
+                fontSize:RF(14, height),
                 lineHeight: 21,
                 top: 12,
                 color: '#4B4B4B',
@@ -212,7 +159,7 @@ export default function Portfolio({navigation}) {
                 }}>Prospective Outcome</Text>
             <Text style={{
                 fontWeight: '600',
-                fontSize: 12,
+                fontSize: RF(12, height),
                 lineHeight: 21,
                 letterSpacing: -0.26,
                 color: '#666666',
@@ -221,7 +168,7 @@ export default function Portfolio({navigation}) {
             }}>Risk:6</Text>
             <Text style={{
                 fontWeight: '500',
-                fontSize: 12,
+                fontSize: RF(12, height),
                 lineHeight: 18, 
                 letterSpacing: -0.26,
                 color: '#666666',
@@ -231,46 +178,47 @@ export default function Portfolio({navigation}) {
         </View>
         {values.map((item, index) => {
             return(
-                <View key={index} style={{top:25, height: height / 2.533, }}>
+                <View key={index} style={{top:25, height: hp(52), alignItems: 'center'}}>
                     <View style ={{ 
                       flexDirection: "row",
-                      width: width / 1.10,
-                      height: height / 11.69231,
+                      width: wp(90.833),
+                      height: hp(9.55882),
                       borderRadius: 6,
-                      backgroundColor: '#F7F7F7',
-                      left: width / 13.333,
+                      backgroundColor: '#EDEEF7',        
                       alignItems: 'center',
-                      justifyContent: 'space-between'
+                      justifyContent: 'space-between',
+                      marginBottom: 8
                       }}
                     >
                         <Text style={{
                           fontWeight: '600',
-                          fontSize: 14,
+                          fontSize: RF(14, height),
                           lineHeight: 17.57,
                           color: '#080D45',
-                          marginLeft: 8
+                          marginLeft: 8,
+                          letterSpacing: RF(1, height),
                         }}>{item.large.value}</Text>
                         <View style={{
                           flexDirection: "row",
-                          justifyContent: 'space-between',
-                          alignItems: 'center'
+                          justifyContent: 'space-around',
+                          alignItems: 'center',
+                          marginRight: 10
                           }}>
                           <CircularProgress
                             value={55}
-                            inActiveStrokeColor={'#e1e1e6'}
+                            inActiveStrokeColor={'#1826D0'}
                             activeStrokeColor={'#1826D0'}
-                            inActiveStrokeOpacity={0.2}
+                            inActiveStrokeOpacity={0.1}
                             progressValueColor={'#1826D0'}
-                            
-                            radius={width / 16.364}
+                            radius={wp(4)}
                           />
                           <Image source={require("../../assets/icons/arrow-right.png")}
                             style={{
-                              width: 4.73,
-                              height: 10.56,
+                              width: wp(2),
+                              height: hp(2),
                               tintColor: '#888789',
                               resizeMode: "contain",
-                              marginLeft: 7,
+                              marginLeft: 9,
                               marginRight: 12
                             }}
                            />
@@ -278,42 +226,43 @@ export default function Portfolio({navigation}) {
                     </View>
                     <View style={{
                       flexDirection: "row",
-                      width: width / 1.10,
-                      height: height / 11.69231,
+                      width: wp(90.833),
+                      height: hp(9.55882),
                       borderRadius: 6,
-                      backgroundColor: '#F7F7F7',
-                      left: width / 13.33,
+                      backgroundColor: '#EDEEF7',
                       alignItems: 'center',
                       justifyContent: 'space-between',
-                      top: 8
+                      marginBottom: 8
                     }}>
                         <Text style={{
                           fontWeight: '600',
-                          fontSize: 14,
+                          fontSize: RF(14, height),
                           lineHeight: 17.57,
                           color: '#080D45',
-                          marginLeft: 8
+                          marginLeft: 8,
+                          letterSpacing: RF(1, height),
                         }}>{item.medium.value}</Text>
                         <View style={{
                           flexDirection: "row",
-                          justifyContent: 'space-between',
-                          alignItems: 'center'
+                          justifyContent: 'space-around',
+                          alignItems: 'center',
+                          marginRight: 10
                           }}>
                           <CircularProgress
                             value={10}
-                            inActiveStrokeColor={'#e1e1e6'}
+                            inActiveStrokeColor={'#1826D0'}
                             activeStrokeColor={'#1826D0'}
-                            inActiveStrokeOpacity={0.2}
+                            inActiveStrokeOpacity={0.1}
                             progressValueColor={'#1826D0'}
-                            radius={width / 16.364}
+                            radius={wp(4)}
                           />
                           <Image source={require("../../assets/icons/arrow-right.png")}
                             style={{
-                              width: 4.73,
-                              height: 10.56,
+                              width: wp(2),
+                              height: hp(2),
                               tintColor: '#888789',
                               resizeMode: "contain",
-                              marginLeft: 7,
+                              marginLeft: 9,
                               marginRight: 12
                             }}
                            />
@@ -322,42 +271,43 @@ export default function Portfolio({navigation}) {
                     </View>
                     <View style={{
                       flexDirection: "row",
-                      width: width / 1.10,
-                      height: height / 11.69231,
+                      width: wp(90.833),
+                      height: hp(9.55882),
                       borderRadius: 6,
-                      backgroundColor: '#F7F7F7',
-                      left: width / 13.33,
+                      backgroundColor: '#EDEEF7',
                       alignItems: 'center',
                       justifyContent: 'space-between',
-                      top:8
+                      marginBottom: 8
                     }}>
                         <Text style={{
                           fontWeight: '600',
-                          fontSize: 14,
+                          fontSize: RF(14, height),
                           lineHeight: 17.57,
                           color: '#080D45',
-                          marginLeft: 8
+                          marginLeft: 8,
+                          letterSpacing: RF(1, height),
                         }}>{item.small.value}</Text>
                         <View style={{
                           flexDirection: "row",
-                          justifyContent: 'space-between',
-                          alignItems: 'center'
+                          justifyContent: 'space-around',
+                          alignItems: 'center',
+                          marginRight: 10
                           }}>
                           <CircularProgress
                             value={5}
-                            inActiveStrokeColor={'#e1e1e6'}
+                            inActiveStrokeColor={'#1826D0'}
                             activeStrokeColor={'#1826D0'}
-                            inActiveStrokeOpacity={0.2}
+                            inActiveStrokeOpacity={0.1}
                             progressValueColor={'#1826D0'}
-                            radius={width / 16.364}
+                            radius={wp(4)}
                           />
                           <Image source={require("../../assets/icons/arrow-right.png")}
                             style={{
-                              width: 4.73,
-                              height: 10.56,
+                              width: wp(2),
+                              height: hp(2),
                               tintColor: '#888789',
                               resizeMode: "contain",
-                              marginLeft: 7,
+                              marginLeft: 9,
                               marginRight: 12
                             }}
                            />
@@ -366,47 +316,47 @@ export default function Portfolio({navigation}) {
                     </View>
                     <View style={{
                       flexDirection: "row",
-                      width: width / 1.10,
-                      height: height / 11.69231,
+                      width: wp(90.833),
+                      height: hp(9.55882),
                       borderRadius: 6,
-                      backgroundColor: '#F7F7F7',
-                      left: width / 13.33,
+                      backgroundColor:'#EDEEF7',
                       alignItems: 'center',
                       justifyContent: 'space-between',
-                      top:8
+                     
                     }}>
                         <Text style={{
                           fontWeight: '600',
-                          fontSize: 14,
-                          lineHeight: 17.57,
+                          fontSize: RF(14, height),
+                          lineHeight: 18,
                           color: '#080D45',
-                          marginLeft: 8
+                          marginLeft: 8,
+                          letterSpacing: RF(1, height),
                         }}>{item.international.value}</Text>
                         <View style={{
                           flexDirection: "row",
-                          justifyContent: 'space-between',
-                          alignItems: 'center'
+                          justifyContent: 'space-around',
+                          alignItems: 'center',
+                          marginRight: 10
                           }}>
                           <CircularProgress
                             value={30}
-                            inActiveStrokeColor={'#e1e1e6'}
+                            inActiveStrokeColor={'#1826D0'}
                             activeStrokeColor={'#1826D0'}
-                            inActiveStrokeOpacity={0.2}
+                            inActiveStrokeOpacity={0.1}
                             progressValueColor={'#1826D0'}
-                            radius={width / 16.364}
+                            radius={wp(4)}
                           />
                           <Image source={require("../../assets/icons/arrow-right.png")}
                             style={{
-                              width: 4.73,
-                              height: 10.56,
+                              width: wp(2),
+                              height: hp(2),
                               tintColor: '#888789',
                               resizeMode: "contain",
-                              marginLeft: 7,
+                              marginLeft: 9,
                               marginRight: 12
                             }}
                            />
-                        </View>
-
+                        </View> 
                     </View>
                 </View>
             )
@@ -414,8 +364,8 @@ export default function Portfolio({navigation}) {
         </ScrollView>
         <View style={{alignItems: 'center'}}>
         <TouchableOpacity style={{
-          width: width / 1.10,
-          height: 50,
+          width: wp(90.833),
+          height: hp(7.353),
           backgroundColor: "#C2C7FF",
           borderRadius: 6,
           marginBottom: 20,
@@ -424,7 +374,7 @@ export default function Portfolio({navigation}) {
           <Text style={{
             textAlign: 'center',
             fontWeight: "700",
-            fontSize: 16,
+            fontSize: RF(16, height),
             lineHeight: 20.08,
             color: "#4B4B4B"
           }}>

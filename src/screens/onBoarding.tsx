@@ -9,9 +9,12 @@ import {
   Platform,
   Animated
 } from "react-native";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { RFValue as RF} from "react-native-responsive-fontsize";
+import { useFonts } from 'expo-font';
 
 const { height, width } = Dimensions.get(
-  Platform.OS === "android" ? "screen" : "window"
+  "window"
 );
 // console.log(width, height)
 const pages = [
@@ -48,15 +51,15 @@ export default function OnBoarding({ navigation }) {
     >
       <View
         style={{
-          marginTop: height / 8.160,
+          marginTop: hp(14),
         }}
       >
         <TouchableOpacity>
             <Image
             source={require("../../assets/icons/Vector.png")}
             style={{
-                width: 12.73,
-                height: 12.73,
+                width: wp(3.536),
+                height: hp(1.675),
                 resizeMode: "contain",
                 left: 31,
                 tintColor: "black",
@@ -73,7 +76,7 @@ export default function OnBoarding({ navigation }) {
           )}
           scrollEventThrottle={16}
           style={{
-            marginTop: height / 14.111,
+            marginTop: hp(7.0867),
           }}
         >
           {pages.map((item, index) => {
@@ -86,10 +89,10 @@ export default function OnBoarding({ navigation }) {
               >
                 <Animated.View 
                     style={{ 
-                        width: width / 1.51, 
-                        height: height / 3.193, 
-                        left: width / 4.56, 
-                        right: width / 6.201
+                        width: wp(66.225), 
+                        height: hp(32.318), 
+                        left: wp(21.93), 
+                        right: wp(16.13)
                     }}
                 >
                   <Image
@@ -104,16 +107,17 @@ export default function OnBoarding({ navigation }) {
                 <View
                   style={{
                     // position: 'absolute',
-                    width: width / 1.2587,
-                    height: height / 10.56,
-                    left: width / 8.182,
+                    
+                    // bottom: height / 10.56,
+                    bottom: 3,
+                    
                     // top: 385
                   }}
                 >
                   <Text
                     style={{
                       fontFamily: "Mulish",
-                      fontSize: 24,
+                      fontSize: RF(24, height),
                       lineHeight: 36,
                       textAlign: "center",
                       fontWeight: "700",
@@ -121,22 +125,21 @@ export default function OnBoarding({ navigation }) {
                       letterSpacing: -0.16,
                     }}
                   >
-                    3KLE invests your money intelligently in stocks
+                    {"3KLE invests your money \n intelligently in stocks"}
                   </Text>
                 </View>
                 <View
                   style={{
                     // position: 'absolute',
-                    width: width / 1.2328,
-                    height: height / 18.53659,
-                    left: width / 8.781,
+                   
+                    
                     // top: 385
                   }}
                 >
                   <Text
                     style={{
                       fontFamily: "Mulish",
-                      fontSize: 14,
+                      fontSize: RF(14, height),
                       lineHeight: 21,
                       textAlign: "center",
                       fontWeight: "400",
@@ -144,8 +147,7 @@ export default function OnBoarding({ navigation }) {
                       letterSpacing: -0.233684,
                     }}
                   >
-                    Build, perserve and manage your family wealth with stocks
-                    investment
+                    {"Build, perserve and manage your \nfamily wealth with stocks investment"}
                   </Text>
                 </View>
               </View>
@@ -167,8 +169,8 @@ export default function OnBoarding({ navigation }) {
                 
                 return (
                 <Animated.View key ={index} style ={{
-                    width: width / 72,
-                    height: width / 72,
+                    width: wp(1.289),
+                    height: wp(1.389),
                     borderRadius: 20,
                     left: width / 2.1,
                     top: 15,
@@ -180,31 +182,32 @@ export default function OnBoarding({ navigation }) {
                 )
             })}
         </View>
+        <View style={{alignItems: 'center'}}>
         <TouchableOpacity 
             style={{
-                width: width - 33, 
-                height: height / 15.2,
+                width: wp(90.833), 
+                height: hp(7.353),
                 borderRadius: 6,
                 backgroundColor: '#7F18D0',
-                left: width / 17,
+                // left: wp(6.667),
                 top: 30,
-                justifyContent: 'center'
+                justifyContent: 'center',
             }}
-            onPress={() =>navigation.navigate('Home')}
+            onPress={() =>navigation.navigate('Portfolio')}
         >
-            <View style={{
-
+          <View style={{
             }}>
                 <Text style={{ 
                     fontFamily: 'Mulish',
                     fontWeight: '700',
-                    fontSize: 16,
+                    fontSize: RF(16, height),
                     lineHeight: 20,
                     textAlign: "center",
                     color: '#FFFFFF',
-                }}>Get started</Text>
-            </View>
+            }}>Get started</Text>
+          </View>
         </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
